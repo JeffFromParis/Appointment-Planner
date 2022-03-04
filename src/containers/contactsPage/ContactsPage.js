@@ -20,6 +20,7 @@ export const ContactsPage = (props) => {
     setName('');
     setPhoneNumber('');
     setEmail('');
+    setIsDuplicate(false);
   }
 
   const handleSubmit = (e) => {
@@ -31,6 +32,8 @@ export const ContactsPage = (props) => {
     if(!isDuplicate){
       addContact(name, phoneNumber,email); //adding newContact
       resetForm();
+    }else{
+      alert('Name already existing. Please use another.');
     }
   };
 
@@ -40,12 +43,14 @@ export const ContactsPage = (props) => {
   */
   useEffect( () => {
     for (const contact of contacts) {
+    
       if (name === contact.name) {
+        alert(`match found between ${name} and ${contact.name}`)
         setIsDuplicate(true);
+        return;
       }
-
-      return;
     }
+    setIsDuplicate(false);
   },
   [contacts, name]
   );
@@ -54,13 +59,21 @@ export const ContactsPage = (props) => {
     <div>
       <section>
         <h2>Add Contact</h2> 
-        <ContactForm 
+        <ContactForm
+          name={name}
+          setName={setName}
+          phone={phoneNumber}
+          setPhone={setPhoneNumber}
+          email={email}
+          setEmail={setEmail}
+          handleSubmit={handleSubmit}
         />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList 
+        <TileList
+          contactOrAppointmentArray={contacts} 
         />
       </section>
     </div>
