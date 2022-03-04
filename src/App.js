@@ -46,7 +46,7 @@ function App() {
     }
 
     //Adding the new contact at the end of the contacts array
-    setContacts( appointments => [...appointments, newAppointment]);
+    setAppointments( appointments => [...appointments, newAppointment]);
   }
 
   return (
